@@ -13,6 +13,10 @@ type TagsRepositoryImpl struct {
 	Db *gorm.DB
 }
 
+func NewTagsRepositoryImpl(Db *gorm.DB) TagsRepository {
+	return &TagsRepositoryImpl{Db: Db}
+}
+
 // Delete implements TagsRepository.
 func (t *TagsRepositoryImpl) Delete(tagId int) {
 	var tags model.Tags

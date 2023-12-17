@@ -12,13 +12,21 @@ import (
 
 type TagsServiceImpl struct {
 	TagsRepository repository.TagsRepository
-	validate       *validator.Validate
+	Validate       *validator.Validate
+}
+
+func NewTagsServiceImpl(tagRepository repository.TagsRepository, validate *validator.Validate) TagsService {
+	return &TagsServiceImpl{
+		TagsRepository: tagRepository,
+		Validate:       validate,
+	}
 }
 
 // Create implements TagsService.
 func (t *TagsServiceImpl) Create(tags request.CreateTagsRequest) {
-	err := t.validate.Struct(tags)
+	err := t.Validate.Struct(tags)
 	helper.ErrorPanic(err)
+
 	tagModel := model.Tags{
 		Name: tags.Name,
 	}
@@ -51,6 +59,7 @@ func (t *TagsServiceImpl) FindAll() []response.TagsResponse {
 func (t *TagsServiceImpl) FindById(tagId int) response.TagsResponse {
 	tagData, err := t.TagsRepository.FindById(tagId)
 	helper.ErrorPanic(err)
+
 	tagResponse := response.TagsResponse{
 		Id:   tagData.Id,
 		Name: tagData.Name,
@@ -62,13 +71,7 @@ func (t *TagsServiceImpl) FindById(tagId int) response.TagsResponse {
 func (t *TagsServiceImpl) Update(tags request.UpdateTagsRequest) {
 	tagData, err := t.TagsRepository.FindById(tags.Id)
 	helper.ErrorPanic(err)
+
 	tagData.Name = tags.Name
 	t.TagsRepository.Update(tagData)
 }
-
-// func NewTagsServiceImpl(tagRepository repository.TagsRepository, validate *validator.Validate) TagsService {
-// 	return &TagsServiceImpl{
-// 		TagsRepository: tagRepository,
-// 		validate:       validate,
-// 	}
-// }

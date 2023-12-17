@@ -1,20 +1,32 @@
 package main
 
 import (
+	"backendgo/config"
+	"backendgo/controller"
 	"backendgo/helper"
+	"backendgo/model"
+	"backendgo/repository"
+	"backendgo/router"
+	"backendgo/service"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/rs/zerolog/log"
 )
 
 func main() {
 	log.Info().Msg("start server")
-	routes := gin.Default()
+	db := config.ConnectToDb()
+	validate := validator.New()
 
-	routes.GET("", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, "welcome home")
-	})
+	db.Table("tags").AutoMigrate(&model.Tags{})
+
+	//adding rep,service,ctrl constructors to main
+	tagsRepository := repository.NewTagsRepositoryImpl(db)
+	tagsService := service.NewTagsServiceImpl(tagsRepository, validate)
+	tagsController := controller.NewTagsController(tagsService)
+
+	routes := router.NewRouter(tagsController)
 
 	server := &http.Server{
 		Addr:    ":8888",
