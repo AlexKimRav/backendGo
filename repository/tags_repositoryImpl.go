@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"backendgo/data/request"
 	"backendgo/helper"
 	"backendgo/model"
-	"backendgo/repository/data/request"
 	"errors"
 
 	"gorm.io/gorm"
