@@ -139,7 +139,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.UpdateTagsRequest"
+                            "$ref": "#/definitions/request.CreateTagsRequest"
                         }
                     }
                 ],
@@ -165,22 +165,6 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 200,
                     "minLength": 1
-                }
-            }
-        },
-        "request.UpdateTagsRequest": {
-            "type": "object",
-            "required": [
-                "id",
-                "name"
-            ],
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string",
-                    "maxLength": 10
                 }
             }
         },

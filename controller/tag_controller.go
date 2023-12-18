@@ -49,7 +49,7 @@ func (controller *TagsController) Create(ctx *gin.Context) {
 // @Description  Update tags data
 // @Tags		 tags
 // @Param        tagId path string true "update tags by id"
-// @Param        tags body request.UpdateTagsRequest true "Update tags"
+// @Param        tags body request.CreateTagsRequest true "Update tags"
 // @Produce      application/json
 // @Success      200  {object}  response.Response{}
 // @Router       /tags/{tagId} [patch]

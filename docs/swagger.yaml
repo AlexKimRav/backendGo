@@ -9,17 +9,6 @@ definitions:
     required:
     - name
     type: object
-  request.UpdateTagsRequest:
-    properties:
-      id:
-        type: integer
-      name:
-        maxLength: 10
-        type: string
-    required:
-    - id
-    - name
-    type: object
   response.Response:
     properties:
       code:
@@ -115,7 +104,7 @@ paths:
         name: tags
         required: true
         schema:
-          $ref: '#/definitions/request.UpdateTagsRequest'
+          $ref: '#/definitions/request.CreateTagsRequest'
       produces:
       - application/json
       responses:
