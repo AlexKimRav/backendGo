@@ -3,6 +3,7 @@ package main
 import (
 	"backendgo/config"
 	"backendgo/controller"
+	_ "backendgo/docs"
 	"backendgo/helper"
 	"backendgo/model"
 	"backendgo/repository"
@@ -14,6 +15,12 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// @title           Tag Example API
+// @version         1.0
+// @description     This is a sample server By go gin gorm
+
+// @host      localhost:8888
+// @BasePath  /api
 func main() {
 	log.Info().Msg("start server")
 	db := config.ConnectToDb()

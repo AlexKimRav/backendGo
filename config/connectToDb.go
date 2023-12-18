@@ -10,11 +10,11 @@ import (
 )
 
 func ConnectToDb() *gorm.DB {
-	//Getenv is taking from system var with name MYSQL_PASSWORD
-	fmt.Println("\nPASSWORD IS: " + os.Getenv("MYSQL_PASSWORD") + "\n")
-	pw := os.Getenv("MYSQL_PASSWORD")
+	//Getenv is taking from system var with name MYSQL_PASSWORD MYSQL_LOGIN
+	dblogin := os.Getenv("MYSQL_LOGIN")
+	dbpw := os.Getenv("MYSQL_PASSWORD")
 
-	dsn := fmt.Sprintf("root:%s@/goschema?charset=utf8mb4&parseTime=True&loc=Local", pw)
+	dsn := fmt.Sprintf("%s:%s@/goschema?charset=utf8mb4&parseTime=True&loc=Local", dblogin, dbpw)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	helper.ErrorPanic(err)
 	return db
